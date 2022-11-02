@@ -14,8 +14,7 @@ def create_connection(db_name, db_user, db_password, db_host = "127.0.0.1", db_p
         print("Connection to PostgreSQL DB successful")
     except OperationalError as e:
         print(f"The error '{e}' occurred")
-        message = "failed"
-    return message
+    return connection
 
 
 def execute_query(query, params=None):
@@ -27,17 +26,51 @@ def execute_query(query, params=None):
         print("Query executed successfully")
         connection.close()
         return cursor
-    except OSError as err:
+    except OSError as e:
         print(f"The error '{e}' occurred or the hero name is already taken")
 
-        create_connection("postgres", "postgres", "postgres")
 
-        execute_query("""
-                    CREATE TABLE something (
-                        id serial PRIMARY KEY,
-                        num integer,
-                        data text)
-                    """)
+#PUT FUNCTIONS AND WHATNOT VVV HERE VVV UNTIL JOSH FIGURES STUFF OUT, DO NOT EDIT ABOVE
 
+
+#save this bit of code for the View Hero function
+#def select_all():
+    #query = """
+        #SELECT * from heroes
+    #"""
+
+    #list_of_heroes = execute_query(query).fetchall()
+    #print(list_of_heroes)
+    #for record in list_of_heroes:
+        #print(record[1])
+
+#select_all()
+
+#add abilities to this function later!!!!!!!!!!!!
+def add_hero(add_name, add_about_me, add_biography):
+    add_name = input("What if your hero name? ")
+    add_about_me = input("Write a short tagline, fun fact about yourself, or your motto: ")
+    add_biography = input("What is your origin story? ")
+    #add_abilities = input("What powers do you have? ")
+
+    ("""
+        INSERT INTO heroes (name, about_me, biography)
+        VALUES (add_name, add_about_me, add_biography)
+    """)
+
+def delete_hero(deleted_hero):
+    deleted_hero = input('Type the name of the hero whose profile you wish to DELETE: ')
+    ("""
+        DELETE FROM heroes WHERE name = deleted_hero
+    """)
+
+#ask for help on this function
+def update_profile(hero_to_update, updated_name, updated_about_me, updated_biography):
+    hero_to_update = input("Type the name of the hero whose profile you wish to UPDATE: ")
+    updated_name = input(f"Change {hero_to_update}'s name to: ")
+    updated_about_me = input("Change this hero's about me to: ")
+    updated_biography = input("Change this hero's biography to: ")
+    ("""
+        UPDATE heroes
+        SET name = updated_name)
     
-            
