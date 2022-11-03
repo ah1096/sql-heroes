@@ -164,8 +164,10 @@ def delete_hero(hero_to_delete):
 user = input("Welcome to SuperBase. Log in as:")
 
 def menu():
-    what_do = input(f"Hello, {user}. What would you like to do?" + '/n' +
-                            "[1] ADD hero profile" + '/n' +
-                            "[2] VIEW hero profile(s)" + '/n' +
-                            "[3] UPDATE hero profile(s)" + '/n' +
+    what_do = input(f"Hello, {user}. What would you like to do?" + '\n' +
+                            "[1] ADD hero profile" + '\n' +
+                            "[2] VIEW hero profile(s)" + '\n' +
+                            "[3] UPDATE hero profile(s)" + '\n' +
                             "[4] DELETE hero profile(s)")
+
+menu()
