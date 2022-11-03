@@ -60,38 +60,40 @@ def add_hero(add_name, add_about_me, add_biography):
 
     print(add_name, add_about_me, add_biography)
     confirm_add = input(f"Would you like to add {add_name}'s profile? Enter [YES] to confirm, or [NO] to start over.")
-    if confirm_add == "YES":
+    if confirm_add == "YES" or "yes":
         print(f"{add_name}'s profile has been created.")
         query = ("""
                     INSERT INTO heroes (name, about_me, biography)
                     VALUES (add_name, add_about_me, add_biography)
                 """)
         execute_query(query,(add_name, add_about_me, add_biography))
-    else:
         #return to menu
-        print("return to menu; this text is here so Python doesn't get mad")
+        menu()
+    elif confirm_add == "NO" or "no":
+        add_hero()
+        
 
 #READ=============================================================================
 def view_hero(hero_to_view):
-    view_choice = input("Input a specific hero name, or enter [A] to see all hero profiles")
+    hero_to_view = input("Input a specific hero name, or enter [A] to see all hero profiles")
 
-    if view_choice == "A":
+    if hero_to_view == "A" or "a":
         #show all profiles with bit of code @ top ?????????
-        print("show all; this text is here so Python doesn't get mad")
+        print(f"{hero_to_view} -> show all; this text is here so Python doesn't get mad")
     else:
         #show only hero_to_view's profile ??????????
-        print("show profile; this text is here so Python doesn't get mad")
+        print(f"{hero_to_view} -> show profile; this text is here so Python doesn't get mad")
 
 
 #UPDATE===========================================================================
 def update_profile(hero_to_update, updated_name, updated_about_me, updated_biography):
     hero_to_update = input("Type the name of the hero whose profile you wish to UPDATE: ")
-    print(f"You have chosen to update {hero_to_udate}'s profile. Type [NO CHANGE] for profile aspects that you wish to remain unchanged.")
+    print(f"You have chosen to update {hero_to_update}'s profile. Type [NO CHANGE] for profile aspects that you wish to remain unchanged.")
     
     updated_name = input(f"Change {hero_to_update}'s name to: ")
     if updated_name == "NO CHANGE":
         #do nothing??
-        print("do nothing; this text is here so Python doesn't get mad")
+        print(f"{updated_name}do nothing; this text is here so Python doesn't get mad")
     else:
         query = (""" 
                     UPDATE heroes
@@ -100,13 +102,15 @@ def update_profile(hero_to_update, updated_name, updated_about_me, updated_biogr
                 """)
         execute_query(query,(updated_name))
 
+        print(f"{updated_name} -> change name; fillertext")
+
         #might need to change hero_to_update to the hero's id because if name is changed, other conditionals
         #that depend on the name value will not work; ask for help
 
     updated_about_me = input(f"Change {hero_to_update}'s about me to: ")
     if updated_about_me == "NO CHANGE":
         #do nothing??
-        print("do nothing; this text is here so Python doesn't get mad")
+        print(f"{updated_about_me}; do nothing; this text is here so Python doesn't get mad")
     else:
         query = (""" 
                     UPDATE heroes
@@ -114,6 +118,8 @@ def update_profile(hero_to_update, updated_name, updated_about_me, updated_biogr
                     WHERE name = hero_to_update
                 """)
         execute_query(query,(updated_about_me))
+
+        print(f"{updated_about_me} -> updated bio")
     
     updated_biography = input(f"Change {hero_to_update}'s biography to: ")
     if updated_biography == "NO CHANGE":
@@ -161,13 +167,33 @@ def delete_hero(hero_to_delete):
 
 #MENU============================================================================
 
-user = input("Welcome to SuperBase. Log in as:")
+user = input("Welcome to SuperBase. Log in as: ")
+password = input("Input password: ")
+#make it more fun 
+    #add a password? wrong pass = booted
+    #SuperBase is a secret government database 
+    #Barbara Gordon/Oracle's database (input "BarbieG", get welcomed as "oracle")
+    #villain's record of adversaries
+if user == "BarbieG" and password == "KYSS23":
+    print("Welcome back, Oracle.")
+else:
+    print(f"Hello, {user}. You're not supposed to be here." + '\n' +
+                "SECURITY PROTOCOLS INITIATED" + '\n' +
+                f"TARGET INTRUDER: {user}")
 
 def menu():
-    what_do = input(f"Hello, {user}. What would you like to do?" + '\n' +
+    what_do = str(input(f"What would you like to do?" + '\n' +
                             "[1] ADD hero profile" + '\n' +
                             "[2] VIEW hero profile(s)" + '\n' +
                             "[3] UPDATE hero profile(s)" + '\n' +
-                            "[4] DELETE hero profile(s)")
+                            "[4] DELETE hero profile(s)"))
+    if what_do == "1":
+        add_hero()
+    elif what_do == "2":
+        view_hero()
+    elif what_do == "3":
+        update_profile()
+    elif what_do == "4":
+        delete_hero()
 
 menu()
