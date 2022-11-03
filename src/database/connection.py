@@ -86,7 +86,7 @@ def view_hero(hero_to_view):
 
 
 #UPDATE===========================================================================
-def update_profile(hero_to_update, updated_name, updated_about_me, updated_biography):
+def update_profile(hero_to_update=None, updated_name=None, updated_about_me=None, updated_biography=None):
     hero_to_update = input("Type the name of the hero whose profile you wish to UPDATE: ")
     print(f"You have chosen to update {hero_to_update}'s profile. Type [NO CHANGE] for profile aspects that you wish to remain unchanged.")
     
@@ -97,10 +97,10 @@ def update_profile(hero_to_update, updated_name, updated_about_me, updated_biogr
     else:
         query = (""" 
                     UPDATE heroes
-                    SET name = updated_name
+                    SET name = %s
                     WHERE name = hero_to_update
                 """)
-        execute_query(query,(updated_name))
+        execute_query(query,(updated_name,))
 
         print(f"{updated_name} -> change name; fillertext")
 
@@ -114,10 +114,10 @@ def update_profile(hero_to_update, updated_name, updated_about_me, updated_biogr
     else:
         query = (""" 
                     UPDATE heroes
-                    SET about_me = updated_about_me
+                    SET about_me = %s
                     WHERE name = hero_to_update
                 """)
-        execute_query(query,(updated_about_me))
+        execute_query(query,(updated_about_me,))
 
         print(f"{updated_about_me} -> updated bio")
     
@@ -128,10 +128,10 @@ def update_profile(hero_to_update, updated_name, updated_about_me, updated_biogr
     else:
         query = (""" 
                     UPDATE heroes
-                    SET biography = updated_biography
+                    SET biography = %s
                     WHERE name = hero_to_update
                 """)
-        execute_query(query,(updated_biography))
+        execute_query(query,(updated_biography,))
 
 
 #keep this code just in case
