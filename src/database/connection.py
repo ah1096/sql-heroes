@@ -26,7 +26,7 @@ def create_connection(db_name, db_user, db_password, db_host = "127.0.0.1", db_p
     return connection
 
 
-def execute_query(query, params):
+def execute_query(query, params=None):
     connection = create_connection("postgres", "postgres", "postgres")
     cursor = connection.cursor()
     try:
@@ -195,7 +195,7 @@ def update_profile(hero_to_update=None, updated_name=None, updated_about_me=None
     #""")
 
 
-#DELETE==========================================================================
+#✅DELETE==========================================================================
 def delete_hero(hero_to_delete=None):
     hero_to_delete = input('Type the name of the hero whose profile you wish to DELETE: ')
     pollice_verso = input(f'Are you sure you want to delete {hero_to_delete}? Enter [YES] or [NO]: ')
@@ -205,7 +205,7 @@ def delete_hero(hero_to_delete=None):
         query = ("""
                     DELETE FROM heroes WHERE name = %s
                 """)
-        execute_query(query,(hero_to_delete))
+        execute_query(query,(hero_to_delete,))
         menu()
 
     elif pollice_verso == "NO" or "no" and len(pollice_verso)==2:
