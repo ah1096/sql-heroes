@@ -39,7 +39,7 @@ def execute_query(query, params=None):
         print(f"The error '{e}' occurred or the hero name is already taken")
 
 
-#=================PUT FUNCTIONS AND WHATNOT VVV HERE VVV UNTIL JOSH FIGURES STUFF OUT, DO NOT EDIT ABOVE=======
+
 
 
 #=============save this bit of code for the View Hero function
@@ -51,8 +51,6 @@ def select_all():
     #print(f"""{list_of_heroes}""" + '\n')
     for record in list_of_heroes:
         print(f""" {record[0]}""")
-
-#=================================================================================
 
 #✅MENU==================================================================================
 def menu():
@@ -73,7 +71,6 @@ def menu():
     elif what_do == "4":
         clear()
         delete_hero()
-
 
 
 #✅CREATE===========================================================================
@@ -102,21 +99,19 @@ def add_hero(add_name=None, add_about_me=None, add_biography=None):
         add_hero()
         
 
+
 #✅READ=============================================================================
 def view_hero():
     hero_to_view = input("Input a specific hero name, or enter [A] to see all hero profiles: ")
-
     def show_one_profile(hero_name):
             query = """
                     SELECT * from heroes
                     WHERE name = %s
                     """
-
             single_hero = execute_query(query, (hero_name,)).fetchone()
             print(f"""{single_hero[1]}: 
                     {single_hero[2]}
                     {single_hero[3]} """)
-
     if hero_to_view == "A" or "a" and len(hero_to_view)==1:
         select_all()
         return_to_menu = input("Type [M] to return to the menu, or enter a hero's name to view their profile: ")
@@ -129,17 +124,12 @@ def view_hero():
             if return_to_menu == "M" or "m" and len(return_to_menu)==1:
                 clear()
                 menu()
-            
-            
         
-
-
 
 #UPDATE===========================================================================
 def update_profile(hero_to_update=None, updated_name=None, updated_about_me=None, updated_biography=None):
     hero_to_update = input("Type the name of the hero whose profile you wish to UPDATE: ")
     print(f"You have chosen to update {hero_to_update}'s profile. Type [NO CHANGE] for profile aspects that you wish to remain unchanged.")
-    
     updated_name = input(f"Change {hero_to_update}'s name to: ")
     if updated_name == "NO CHANGE":
         #do nothing??
@@ -184,17 +174,6 @@ def update_profile(hero_to_update=None, updated_name=None, updated_about_me=None
         execute_query(query,(updated_biography,))
 
 
-#keep this code just in case
-
-    #("""
-        #UPDATE heroes
-        #SET name = updated_name,
-            #about_me = update_about_me,
-            #biography = updated_about_me
-        #WHERE name = hero_to_update)
-    #""")
-
-
 #✅DELETE==========================================================================
 def delete_hero(hero_to_delete=None):
     hero_to_delete = input('Type the name of the hero whose profile you wish to DELETE: ')
@@ -215,6 +194,7 @@ def delete_hero(hero_to_delete=None):
         elif cold_feet == "M":
             menu()
 
+
 #LOGIN PAGE============================================================================
 
 user = input("Welcome to SuperBase. Log in as: ")
@@ -234,6 +214,3 @@ else:
                 f"TARGET INTRUDER: {user}")
     sleep(3)
     clear()
-
-
-
