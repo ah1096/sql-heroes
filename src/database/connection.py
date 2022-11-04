@@ -120,59 +120,70 @@ def view_hero():
             menu()
         else:
             show_one_profile(return_to_menu)
-            return_to_menu = input("Type [M] to return to the menu: ")
-            if return_to_menu == "M" or "m" and len(return_to_menu)==1:
+            go_back = input("Input [M] to return to the menu. ")
+            if go_back == "M" or "m" and len(go_back)==1:
                 clear()
                 menu()
+    else:
+        show_one_profile(hero_to_view)
+        return_to_menu = input("Type [M] to return to the menu: ")
+        if return_to_menu == "M" or "m" and len(return_to_menu)==1:
+            clear()
+            menu()
         
 
 #UPDATE===========================================================================
 def update_profile(hero_to_update=None, updated_name=None, updated_about_me=None, updated_biography=None):
-    hero_to_update = input("Type the name of the hero whose profile you wish to UPDATE: ")
+    hero_to_update = int(input("Type the identification number of the hero whose profile you wish to UPDATE: "))
     print(f"You have chosen to update {hero_to_update}'s profile. Type [NO CHANGE] for profile aspects that you wish to remain unchanged.")
     updated_name = input(f"Change {hero_to_update}'s name to: ")
     if updated_name == "NO CHANGE":
         #do nothing??
-        print(f"{updated_name}do nothing; this text is here so Python doesn't get mad")
+        print(f"Hero # {hero_to_update}'s name is unchanged")
     else:
         query = ("""
                     UPDATE heroes
                     SET name = %s
-                    WHERE name = hero_to_update
+                    WHERE id = %s
                 """)
-        execute_query(query,(updated_name,))
+        execute_query(query,(updated_name, hero_to_update))
 
-        print(f"{updated_name} -> change name; fillertext")
+        print(f"{updated_name} -> Updated name")
 
-        #might need to change hero_to_update to the hero's id because if name is changed, other conditionals
-        #that depend on the name value will not work; ask for help
 
     updated_about_me = input(f"Change {hero_to_update}'s about me to: ")
     if updated_about_me == "NO CHANGE":
         #do nothing??
-        print(f"{updated_about_me}; do nothing; this text is here so Python doesn't get mad")
+        print(f"Hero # {hero_to_update}'s about me is unchanged")
     else:
         query = (""" 
                     UPDATE heroes
                     SET about_me = %s
-                    WHERE name = hero_to_update
+                    WHERE id = %s
                 """)
-        execute_query(query,(updated_about_me,))
+        execute_query(query,(updated_about_me, hero_to_update))
 
-        print(f"{updated_about_me} -> updated bio")
+        print(f"{updated_about_me} -> Updated about me")
     
     updated_biography = input(f"Change {hero_to_update}'s biography to: ")
     if updated_biography == "NO CHANGE":
         #do nothing??
-        print("do nothing; this text is here so Python doesn't get mad")
+        print(f"Hero # {hero_to_update}'s biography is unchanged")
     else:
         query = (""" 
                     UPDATE heroes
                     SET biography = %s
-                    WHERE name = hero_to_update
+                    WHERE id = %s
                 """)
-        execute_query(query,(updated_biography,))
-
+        execute_query(query,(updated_biography, hero_to_update))
+        print(f"{updated_biography} -> Updated biography")
+    clear()
+    update_finished = input(f"Hero #{hero_to_update}'s information has been updated. Input [M] to return to the menu.")
+    if update_finished == "M" or "m" and len(update_finished)==1:
+            clear()
+            menu()
+    else:
+        print("Invalid input.")
 
 #✅DELETE==========================================================================
 def delete_hero(hero_to_delete=None):
@@ -197,20 +208,31 @@ def delete_hero(hero_to_delete=None):
 
 #LOGIN PAGE============================================================================
 
+clear()
 user = input("Welcome to SuperBase. Log in as: ")
 password = input("Input password: ")
-#make it more fun 
-    #add a password? wrong pass = booted
-    #SuperBase is a secret government database??
+#make it more fun; structure depends on username (limit to Batman family??)
+    #invalid password = booted
     #Barbara Gordon/Oracle's database (input "BarbieG", get welcomed as "oracle")
-    #villain's record of adversaries??
+        #All other profiles have LIMITED view-only functionality + cute custom stuff
+    #login as Batman = special function specifically for locating Joker, creep on all Bruce's love interests (dating profiles?)
+    #login as Alfred = RAF references, "Master Wayne" baby monitor function
+    #Gordon has "Call Batman" function, prints "I work alone"; 'add friend' on batman also returns "I work alone"
+    #add individual logins for all the Robins; Nightwing override for Dick Grayson; Jason Todd's profile returns RIP message, etc
 if user == "BarbieG" and password == "KYSS23":
     clear()
     print("Welcome back, Oracle.")
     menu()
 else:
+    clear()
     print(f"Hello, {user}. You're not supposed to be here." + '\n' +
                 "SECURITY PROTOCOLS INITIATED" + '\n' +
                 f"TARGET INTRUDER: {user}")
-    sleep(3)
+    sleep(1)
+    print("3")
+    sleep(1)
+    print("2")
+    sleep(1)
+    print("1")
+    sleep(1)
     clear()
