@@ -196,6 +196,8 @@ def delete_hero(hero_to_delete=None):
                     DELETE FROM heroes WHERE name = %s
                 """)
         execute_query(query,(hero_to_delete,))
+        sleep(3)
+        clear()
         menu()
 
     elif pollice_verso == "NO" or "no" and len(pollice_verso)==2:
